@@ -5,7 +5,7 @@ import java.util.HashMap;
 class FirstRecurringCharacter {
 
     public static void main(String[] args) {
-        int[] input = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 19 };
+        int[] input = new int[] { 2, 1, 5, 42, 3, 5, 2, 1 ,2};
 
         System.out.println("-----------MAP--------------");
         System.out.println(findFirstCharacter(input));
@@ -16,16 +16,17 @@ class FirstRecurringCharacter {
 
     private static int findFirstBrute(int[] input) {
         int counter = 0;
+        int recurringIndex = input.length;
         for (int i = 0; i < input.length; i++) {
-            for (int j = i + 1; j < input.length; j++) {
+            for (int j = i + 1; j < recurringIndex; j++) {
                 if (input[i] == input[j]) {
-                    System.out.println("Big O() " +counter);
-                    return input[i];
+                    recurringIndex = j;
                 }
                 counter++;
             }
         }
-        throw new RuntimeException("Not found");
+        System.out.println("Counter: " + counter);
+        return input[recurringIndex];
     }
 
     private static int findFirstCharacter(int[] input) {
@@ -33,7 +34,7 @@ class FirstRecurringCharacter {
         HashMap<Object, Object> map = new HashMap<>();
         for (int i = 0; i < input.length; i++) {
             if (map.containsValue(input[i])) {
-                System.out.println("Big O() " +counter);
+                System.out.println("Counter: " + counter);
                 return input[i];
             } else {
                 map.put(i, input[i]);
